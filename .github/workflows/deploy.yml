@@ -6,10 +6,7 @@ on:
 
 env:
     EEC2_IP: "ec2-18-118-218-204.us-east-2.compute.amazonaws.com"
-    OWNER: ${{ github.repository_owner }}
-    REPO_NAME: ${{ github.event.repository.name }}
     GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
-    SCRIPTS_PATH: ${{ github.workspace }}/scripts
 
 jobs:
   deploy:
@@ -19,10 +16,15 @@ jobs:
         run: env | sort
       - name: Create ssh key
         run: |
-          ${{ env.SCRIPTS_PATH}}/api_key.pem
-          echo "${{ secrets.SSH_KEY }}" > ${{ env.SCRIPTS_PATH}}/api_key.pem
-          chmod 400 ${{ env.SCRIPTS_PATH}}/api_key.pem
-      - name: Run deploy script
-        run: scripts/deploy
-#      - name: Verify instance running
-#        run: curl http://89.207.132.170
+          api_key.pem
+          echo "${{ secrets.SSH_KEY }}" > api_key.pem
+          chmod 400 api_key.pem
+      - name: SSH and deploy
+        run: |
+            ssh -i api_key.pem ec2-user@${{ env.EEC2_IP }}
+                "git pull https://${{ github.repository_owner }}:${{ env.GH_PAT_TOKEN }}@github.com/${{ github.repository }}.git
+                docker-compose down
+                docker-compose up -d --build
+                sleep 5
+                docker exec drf-wine-api-api-1 python /src/manage.py makemigrations
+                docker exec drf-wine-api-api-1 python /src/manage.py migrate"
