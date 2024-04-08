@@ -27,6 +27,7 @@ jobs:
       #           sleep 5
       #           docker exec drf-wine-api-api-1 python /src/manage.py makemigrations
       #           docker exec drf-wine-api-api-1 python /src/manage.py migrate"
+      
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1.0.3
         with:
