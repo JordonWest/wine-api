@@ -9,6 +9,7 @@ env:
     OWNER: ${{ github.repository_owner }}
     REPO_NAME: ${{ github.event.repository.name }}
     GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
+    SCRIPTS_PATH: ${{ github.workspace }}/scripts
 
 jobs:
   deploy:
@@ -18,9 +19,9 @@ jobs:
         run: env | sort
       - name: Create ssh key
         run: |
-          touch scripts/api_key.pem
-          echo "${{ secrets.SSH_KEY }}" > scripts/api_key.pem
-          chmod 400 scripts/api_key.pem
+          ${{ env.SCRIPTS_PATH}}/api_key.pem
+          echo "${{ secrets.SSH_KEY }}" > ${{ env.SCRIPTS_PATH}}/api_key.pem
+          chmod 400 ${{ env.SCRIPTS_PATH}}/api_key.pem
       - name: Run deploy script
         run: scripts/deploy
 #      - name: Verify instance running
