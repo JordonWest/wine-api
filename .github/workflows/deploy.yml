@@ -4,14 +4,27 @@ on:
   push:
   workflow_dispatch:
 
+  env:
+    EC2_IP: "ec2-18-118-218-204.us-east-2.compute.amazonaws.com"
+    OWNER: ${{ github.repository_owner }}
+    REPO_NAME: ${{ github.event.repository.name }}
+    GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
+
 jobs:
   deploy:
     runs-on: [self-hosted]
     steps:
+      - name: get env
+        run: env | sort
       - name: Checkout
         uses: actions/checkout@v3
         with:
           ref: master
+      - name: Create ssh key
+        run: |
+          touch api_key.pem
+          echo "${{ secrets.SSH_KEY }}" > scripts/api_key.pem
+          chmod 400 api_key.pem
       - name: Run deploy script
         run: scripts/deploy
 #      - name: Verify instance running
