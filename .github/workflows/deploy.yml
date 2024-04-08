@@ -4,8 +4,8 @@ on:
   push:
   workflow_dispatch:
 
-  env:
-    EC2_IP: "ec2-18-118-218-204.us-east-2.compute.amazonaws.com"
+env:
+    EEC2_IP: "ec2-18-118-218-204.us-east-2.compute.amazonaws.com"
     OWNER: ${{ github.repository_owner }}
     REPO_NAME: ${{ github.event.repository.name }}
     GH_PAT_TOKEN: ${{ secrets.GH_PAT_TOKEN }}
