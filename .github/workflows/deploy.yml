@@ -16,10 +16,6 @@ jobs:
     steps:
       - name: get env
         run: env | sort
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: master
       - name: Create ssh key
         run: |
           touch api_key.pem
