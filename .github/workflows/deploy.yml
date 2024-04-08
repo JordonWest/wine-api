@@ -28,3 +28,16 @@ jobs:
                 sleep 5
                 docker exec drf-wine-api-api-1 python /src/manage.py makemigrations
                 docker exec drf-wine-api-api-1 python /src/manage.py migrate"
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ env.EEC2_IP }}
+          username: ec2-user
+          key: api_key.pem
+          script: |
+            git pull https://${{ github.repository_owner }}:${{ env.GH_PAT_TOKEN }}@github.com/${{ github.repository }}.git
+            docker-compose down
+            docker-compose up -d --build
+            sleep 5
+            docker exec drf-wine-api-api-1 python /src/manage.py makemigrations
+            docker exec drf-wine-api-api-1 python /src/manage.py migrate
