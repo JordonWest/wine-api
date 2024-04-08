@@ -14,10 +14,10 @@ jobs:
     steps:
       - name: get env
         run: env | sort
-      - name: Create ssh key
-        run: |
-          echo "${{ secrets.SSH_KEY }}" > api_key.pem
-          chmod 400 api_key.pem
+      # - name: Create ssh key
+      #   run: |
+      #     echo "${{ secrets.SSH_KEY }}" > api_key.pem
+      #     chmod 400 api_key.pem
       - name: SSH and deploy
         run: |
             ssh -i api_key.pem ec2-user@${{ env.EEC2_IP }}
