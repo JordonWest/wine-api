@@ -1,5 +1,7 @@
 #!/bin/bash
 
+scp 
+
 #git pull https://$OWNER:$GITHUB_TOKEN@github.com/JordonWest/drf-wine-api.git
 git pull https://$OWNER:$GITHUB_TOKEN@github.com/$REPO_NAME
 
