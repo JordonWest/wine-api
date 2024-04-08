@@ -18,9 +18,9 @@ jobs:
         run: env | sort
       - name: Create ssh key
         run: |
-          touch api_key.pem
+          touch scripts/api_key.pem
           echo "${{ secrets.SSH_KEY }}" > scripts/api_key.pem
-          chmod 400 api_key.pem
+          chmod 400 scripts/api_key.pem
       - name: Run deploy script
         run: scripts/deploy
 #      - name: Verify instance running
