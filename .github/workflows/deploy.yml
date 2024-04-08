@@ -16,7 +16,7 @@ jobs:
         run: env | sort
       - name: Create ssh key
         run: |
-          api_key.pem
+          touch api_key.pem
           echo "${{ secrets.SSH_KEY }}" > api_key.pem
           chmod 400 api_key.pem
       - name: SSH and deploy
