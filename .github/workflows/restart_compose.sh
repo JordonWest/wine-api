@@ -1,5 +1,7 @@
+#!/bin/bash
 
-git pull https://mm1jwest:$GITHUB_TOKEN@github.com/JordonWest/drf-wine-api.git
+#git pull https://$OWNER:$GITHUB_TOKEN@github.com/JordonWest/drf-wine-api.git
+git pull https://$OWNER:$GITHUB_TOKEN@github.com/$REPO_NAME
 
 docker-compose down
 
@@ -9,3 +11,4 @@ docker-compose up -d --build
 sleep 5
 docker exec drf-wine-api-api-1 python /src/manage.py makemigrations 
 docker exec drf-wine-api-api-1 python /src/manage.py migrate
+
