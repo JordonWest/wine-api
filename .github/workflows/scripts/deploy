@@ -1,15 +1,8 @@
 #!/bin/bash
-ec2-18-118-218-204.us-east-2.compute.amazonaws.com
-ssh -i $SSH_KEY ec2-user@$EC2_IP
-#git pull https://$OWNER:$GITHUB_TOKEN@github.com/JordonWest/drf-wine-api.git
 git pull https://$OWNER:$GITHUB_TOKEN@github.com/$REPO_NAME
-
 docker-compose down
-
 docker-compose up -d --build
 
-# make sure the postgres container is ready, then run migrations
 sleep 5
 docker exec drf-wine-api-api-1 python /src/manage.py makemigrations 
 docker exec drf-wine-api-api-1 python /src/manage.py migrate
-
