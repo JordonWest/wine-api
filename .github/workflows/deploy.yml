@@ -26,8 +26,8 @@ jobs:
       - name: Restart Docker
         run: |
           cd ~/wine-api
-          docker compose down -v
-          docker compose up -d --build
+          docker-compose down -v
+          docker-compose up -d --build
           python manage.py makemigrations
           python manage.py migrate
           sleep 5
