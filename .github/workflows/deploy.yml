@@ -17,6 +17,8 @@ jobs:
     runs-on: [test]
     if: ${{ inputs.environment }} == "test"
     steps:
+      - name: get env
+        run: env | sort
       - name: Git Pull
         run: |
           cd ${{ github.repository }}
@@ -33,4 +35,3 @@ jobs:
           docker exec drf-wine-api-api-1 python /src/manage.py migrate
   # deploy-prod:
 
-    
