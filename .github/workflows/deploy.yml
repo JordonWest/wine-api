@@ -29,8 +29,6 @@ jobs:
           cd ~/wine-api
           docker-compose down -v
           docker-compose up -d --build
-          python manage.py makemigrations
-          python manage.py migrate
           sleep 5
           docker exec drf-wine-api-api-1 python3 /src/manage.py makemigrations
           docker exec drf-wine-api-api-1 python3 /src/manage.py migrate
