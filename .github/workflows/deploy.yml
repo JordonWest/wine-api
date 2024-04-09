@@ -21,7 +21,7 @@ jobs:
         run: env | sort
       - name: Git Pull
         run: |
-          cd ${{ github.repository }}
+          cd $(sed -e 's/${{github.owner}}\//${{ github.repository }}')
           git pull https://${{ github.repository_owner }}:${{ secrets.GH_PAT_TOKEN }}@github.com/${{ github.repository }}.git
       - name: Restart Docker
         run: |
