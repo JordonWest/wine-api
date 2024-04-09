@@ -30,7 +30,7 @@ jobs:
           docker-compose down -v
           docker-compose up -d --build
           sleep 5
-          docker exec drf-wine-api-api-1 python3 /src/manage.py makemigrations
-          docker exec drf-wine-api-api-1 python3 /src/manage.py migrate
+          docker exec wine-api-api-1 python3 /src/manage.py makemigrations
+          docker exec wine-api-api-1 python3 /src/manage.py migrate
   # deploy-prod:
 
