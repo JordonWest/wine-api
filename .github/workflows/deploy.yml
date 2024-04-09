@@ -32,5 +32,8 @@ jobs:
           sleep 5
           docker exec wine-api-api-1 python3 /src/manage.py makemigrations
           docker exec wine-api-api-1 python3 /src/manage.py migrate
+      - name: Job Complete Message
+        run: |
+          echo "Successfully deployed to UAT"
   # deploy-prod:
 
