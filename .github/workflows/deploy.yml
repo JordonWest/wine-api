@@ -21,11 +21,11 @@ jobs:
         run: env | sort
       - name: Git Pull
         run: |
-          cd wine-api
+          cd ~/wine-api
           git pull https://${{ github.repository_owner }}:${{ secrets.GH_PAT_TOKEN }}@github.com/${{ github.repository }}.git
       - name: Restart Docker
         run: |
-          cd ${{ github.repository }}
+          cd ~/wine-api
           docker compose down -v
           docker compose up -d --build
           python manage.py makemigrations
