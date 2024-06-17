@@ -15,7 +15,7 @@ on:
       
 jobs:
   deploy-test:
-    runs-on: [test]
+    runs-on: [ubuntu]
     if: ${{ inputs.environment }} == "test"
     steps:
       - name: get env
