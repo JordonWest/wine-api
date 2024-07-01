@@ -32,15 +32,15 @@ jobs:
           REMOTE_USER: "ec2-user"
           TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
           SCRIPT_AFTER: |
+            cat "Squid Squid Squid"
             cd ~/wine-api
-            cat README.md
-            echo $RSYNC_STDOUT
-      - name: get env
-        run: env | sort
-      # - name: Git Pull
-      #   run: |
-      #     cd ~/wine-api
-      #     git pull https://${{ github.repository_owner }}:${{ secrets.GH_PAT_TOKEN }}@github.com/${{ github.repository }}.git
+            docker-compose down -v
+            docker-compose up -d --build
+            sleep 5
+            docker exec wine-api-api-1 python3 /src/manage.py makemigrations
+            docker exec wine-api-api-1 python3 /src/manage.py migrate
+      # - name: get env
+      #   run: env | sort
       # - name: Restart Docker
       #   run: |
       #     cd ~/wine-api
