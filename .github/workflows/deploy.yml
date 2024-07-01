@@ -26,26 +26,31 @@ jobs:
         uses: easingthemes/ssh-deploy@v5.0.3
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          ARGS: -avzr --delete
           SOURCE: "./"
           REMOTE_HOST: ${{ vars.DEV_INSTANCE }}
           REMOTE_USER: "ec2-user"
           TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
+          SCRIPT_AFTER: |
+            cd ~/wine-api
+            cat README.md
+            echo $RSYNC_STDOUT
       - name: get env
         run: env | sort
-      - name: Git Pull
-        run: |
-          cd ~/wine-api
-          git pull https://${{ github.repository_owner }}:${{ secrets.GH_PAT_TOKEN }}@github.com/${{ github.repository }}.git
-      - name: Restart Docker
-        run: |
-          cd ~/wine-api
-          docker-compose down -v
-          docker-compose up -d --build
-          sleep 5
-          docker exec wine-api-api-1 python3 /src/manage.py makemigrations
-          docker exec wine-api-api-1 python3 /src/manage.py migrate
-      - name: Job Complete Message
-        run: |
-          echo "Successfully deployed to UAT"
+      # - name: Git Pull
+      #   run: |
+      #     cd ~/wine-api
+      #     git pull https://${{ github.repository_owner }}:${{ secrets.GH_PAT_TOKEN }}@github.com/${{ github.repository }}.git
+      # - name: Restart Docker
+      #   run: |
+      #     cd ~/wine-api
+      #     docker-compose down -v
+      #     docker-compose up -d --build
+      #     sleep 5
+      #     docker exec wine-api-api-1 python3 /src/manage.py makemigrations
+      #     docker exec wine-api-api-1 python3 /src/manage.py migrate
+      # - name: Job Complete Message
+      #   run: |
+      #     echo "Successfully deployed to UAT"
   # deploy-prod:
 
