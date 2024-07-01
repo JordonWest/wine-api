@@ -18,6 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.environment }} == "test"
     steps:
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v5.0.3
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: "ec2-34-213-48-149.us-west-2.compute.amazonaws.com"
+          REMOTE_USER: "ec2-user"
+          TARGET: "/home/ec2-user/SampleExpressApp"
       - name: get env
         run: env | sort
       - name: Git Pull
