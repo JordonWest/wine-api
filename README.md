@@ -1,6 +1,6 @@
 # How to set up automated docker-compose deploy with GitHub Actions
 
-[![Deployed to Development EC2 Instance](https://github.com/JordonWest/wine-api/actions/workflows/deploy.yaml/badge.svg)](https://github.com/JordonWest/wine-api/actions/workflows/deploy.yaml)
+[![Deployed to Development EC2 Instance](https://github.com/JordonWest/wine-api/actions/workflows/deploy.yml/badge.svg)](https://github.com/JordonWest/wine-api/actions/workflows/deploy.yml)
 
 ## Prerequisites
 
@@ -33,15 +33,15 @@
 1. Go to the [Actions page] for your repository.
 2. Click the "New workflow" button on the left side.
 3. Under the "Automation" section, find the "Manual workflow" option and click the "Configure" button.
-4. Paste the contents of [deploy.yaml] and click the "Commit changes..." button.
+4. Paste the contents of [deploy.yml] and click the "Commit changes..." button.
 
 ## Profit
 
 Your commits the the `main` branch will now trigger this Action to run, deploying your application to the EC2 instance.
-To deploy to Prod, simply add the secret and variable for the Production instance, uncomment out the code in [deploy.yaml], and update the script as necessary to not blow away production data.
+To deploy to Prod, simply add the secret and variable for the Production instance, uncomment out the code in [deploy.yml], and update the script as necessary to not blow away production data.
 
 [Settings page]: https://github.com/JordonWest/wine-api/settings
 [Actions Secrets and Variables page]: https://github.com/JordonWest/wine-api/settings/secrets/actions
 [Variables page]: https://github.com/JordonWest/wine-api/settings/variables/actions
 [Actions page]: https://github.com/JordonWest/wine-api/actions
-[deploy.yaml]: https://github.com/JordonWest/wine-api/blob/main/.github/workflows/deploy.yml
+[deploy.yml]: https://github.com/JordonWest/wine-api/blob/main/.github/workflows/deploy.yml
