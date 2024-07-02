@@ -1,5 +1,7 @@
 # How to set up automated docker-compose deploy with GitHub Actions
 
+https://github.com/JordonWest/wine-api/actions/workflows/deploy.yaml/badge.svg
+
 ## Prerequisites
 
 1. One or more EC2 Instances set up on on AWS.
