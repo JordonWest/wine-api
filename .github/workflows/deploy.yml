@@ -32,8 +32,7 @@ jobs:
           REMOTE_USER: "ec2-user"
           TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
           SCRIPT_AFTER: |
-            cat "Squid Squid Squid"
-            cd ~/wine-api
+            cd ~/${{ env.REPOSITORY_NAME }}
             docker-compose down -v
             docker-compose up -d --build
             sleep 5
