@@ -24,6 +24,7 @@ jobs:
             echo "DEPLOY_ENV=${{ env.DEV_INSTANCE }}" >> $GITHUB_ENV
           else
             echo "DEPLOY_ENV=${{ env.PROD_INSTANCE }}" >> $GITHUB_ENV
+          fi
       - name: Checkout the code
         uses: actions/checkout@v1
       - name: get repository name
