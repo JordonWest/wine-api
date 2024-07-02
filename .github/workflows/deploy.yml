@@ -2,12 +2,17 @@ name: Deploy to EC2 Instance
 
 on:
   push:
+    # run this when there is a push to "main"
     branches: [ "main" ]
+    # this creates the "run workflow" button so it can be triggered manually via the UI
   workflow_dispatch:
+    # creating the 'test' and 'prod' inputs for later use in targetting deploy environments
     inputs:
       environment:
         description: "select deploy environment"
+        # multi-select
         type: choice
+        # default to test so it always runs in the test environment and not to Production
         default: 'test'
         options:
           - test
@@ -15,22 +20,30 @@ on:
       
 jobs:
   deploy:
+    # give me the latest ubuntu image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
+        # checks out the repo into the action runner
         uses: actions/checkout@v1
       - name: get repository name
+        # Writing the repo name into an Env variable. (not strictly necessary, but saves some syntax headaches)
         run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+        # 
       - name: Deploy to my EC2 Dev instance
         if: ${{ inputs.environment }} == "test"
+        # `ssh` in, rsync from the Action runner, then run arbitrary commands after completion.
         uses: easingthemes/ssh-deploy@v5.0.3
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          ARGS: -avzr --delete
+          # run `man rsync` to learn what these args do
+          ARGS: -avzr --delete 
+          # what in the repo am I syncing? For this example, I just want the whole thing
           SOURCE: "./"
           REMOTE_HOST: ${{ vars.DEV_INSTANCE }}
           REMOTE_USER: "ec2-user"
           TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
+          # How would you manually start your repo?
           SCRIPT_AFTER: |
             cd ~/${{ env.REPOSITORY_NAME }}
             docker-compose down -v
