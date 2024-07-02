@@ -21,9 +21,9 @@ jobs:
       - name: Determine Deploy Env
         run: |
           if [ ${{ inputs.environment }} == "test" ]; then
-            echo "DEPLOY_ENV=${{ var.DEV_INSTANCE }}" >> $GITHUB_ENV
+            echo "DEPLOY_ENV=${{ vars.DEV_INSTANCE }}" >> $GITHUB_ENV
           else
-            echo "DEPLOY_ENV=${{ var.PROD_INSTANCE }}" >> $GITHUB_ENV
+            echo "DEPLOY_ENV=${{ vars.PROD_INSTANCE }}" >> $GITHUB_ENV
           fi
       - name: Checkout the code
         uses: actions/checkout@v1
