@@ -39,16 +39,16 @@ jobs:
             docker exec wine-api-api-1 python3 /src/manage.py makemigrations
             docker exec wine-api-api-1 python3 /src/manage.py migrate
 
-      - name: Deploy to my EC2 Prod instance
-        if: ${{ inputs.environment }} == "prod"
-        uses: easingthemes/ssh-deploy@v5.0.3
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.PROD_EC2_SSH_KEY }}
-          ARGS: -avzr --delete
-          SOURCE: "./"
-          REMOTE_HOST: ${{ vars.PROD_INSTANCE }}
-          REMOTE_USER: "ec2-user"
-          TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
-          SCRIPT_AFTER: |
-            cd ~/${{ env.REPOSITORY_NAME }}
-            DO DIFFERENT THINGS PROBABLY
+      # - name: Deploy to my EC2 Prod instance
+      #   if: ${{ inputs.environment }} == "prod"
+      #   uses: easingthemes/ssh-deploy@v5.0.3
+      #   env:
+      #     SSH_PRIVATE_KEY: ${{ secrets.PROD_EC2_SSH_KEY }}
+      #     ARGS: -avzr --delete
+      #     SOURCE: "./"
+      #     REMOTE_HOST: ${{ vars.PROD_INSTANCE }}
+      #     REMOTE_USER: "ec2-user"
+      #     TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
+      #     SCRIPT_AFTER: |
+      #       cd ~/${{ env.REPOSITORY_NAME }}
+      #       DO DIFFERENT THINGS PROBABLY
