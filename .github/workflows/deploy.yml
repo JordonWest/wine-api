@@ -14,10 +14,16 @@ on:
           - prod
       
 jobs:
-  deploy-test:
+  deploy:
     runs-on: ubuntu-latest
     if: ${{ inputs.environment }} == "test"
     steps:
+      - name: Determine Deploy Env
+        run: |
+          if [ ${{ inputs.environment }} == "test" ]; then
+            echo "DEPLOY_ENV=${{ env.DEV_INSTANCE }}" >> $GITHUB_ENV
+          else
+            echo "DEPLOY_ENV=${{ env.PROD_INSTANCE }}" >> $GITHUB_ENV
       - name: Checkout the code
         uses: actions/checkout@v1
       - name: get repository name
@@ -28,7 +34,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           ARGS: -avzr --delete
           SOURCE: "./"
-          REMOTE_HOST: ${{ vars.DEV_INSTANCE }}
+          REMOTE_HOST: ${{ env.DEPLOY_ENV }}
           REMOTE_USER: "ec2-user"
           TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
           SCRIPT_AFTER: |
@@ -38,18 +44,3 @@ jobs:
             sleep 5
             docker exec wine-api-api-1 python3 /src/manage.py makemigrations
             docker exec wine-api-api-1 python3 /src/manage.py migrate
-      # - name: get env
-      #   run: env | sort
-      # - name: Restart Docker
-      #   run: |
-      #     cd ~/wine-api
-      #     docker-compose down -v
-      #     docker-compose up -d --build
-      #     sleep 5
-      #     docker exec wine-api-api-1 python3 /src/manage.py makemigrations
-      #     docker exec wine-api-api-1 python3 /src/manage.py migrate
-      # - name: Job Complete Message
-      #   run: |
-      #     echo "Successfully deployed to UAT"
-  # deploy-prod:
-
