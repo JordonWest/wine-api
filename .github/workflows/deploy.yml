@@ -12,6 +12,8 @@ on:
         options:
           - test
           - prod
+env:
+  DEPLOY_ENV: ${{ vars.DEV_INSTANCE }}
       
 jobs:
   deploy:
