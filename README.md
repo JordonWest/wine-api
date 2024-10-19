@@ -1,4 +1,4 @@
-# How to set up automated docker-compose deploy with GitHub Actions
+# How to set up automated docker-compose deploy with GitHub Actions - edit
 
 [![Deployed to Development EC2 Instance](https://github.com/JordonWest/wine-api/actions/workflows/deploy.yml/badge.svg)](https://github.com/JordonWest/wine-api/actions/workflows/deploy.yml)
 
