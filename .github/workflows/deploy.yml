@@ -42,7 +42,8 @@ jobs:
           SOURCE: "./"
           REMOTE_HOST: ${{ vars.DEV_INSTANCE }}
           REMOTE_USER: "ec2-user"
-          TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
+          # TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
+          TARGET: "/home/ec2-user/"
           # How would you manually start your repo?
           SCRIPT_AFTER: |
             cd ~/${{ env.REPOSITORY_NAME }}
