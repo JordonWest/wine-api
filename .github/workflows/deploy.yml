@@ -45,7 +45,6 @@ jobs:
           TARGET: "/home/ec2-user/${{ env.REPOSITORY_NAME }}"
           # How would you manually start your repo?
           SCRIPT_AFTER: |
-            mkdir ~/${{ env.REPOSITORY_NAME }}
             cd ~/${{ env.REPOSITORY_NAME }}
             docker-compose down -v
             docker-compose up -d --build
