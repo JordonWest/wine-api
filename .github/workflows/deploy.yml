@@ -33,7 +33,7 @@ jobs:
       - name: Deploy to my EC2 Dev instance
         if: ${{ inputs.environment }} == "test"
         # `ssh` in, rsync from the Action runner, then run arbitrary commands after completion.
-        uses: easingthemes/ssh-deploy@v5.0.3
+        uses: easingthemes/ssh-deploy@v5.1.0
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
           # run `man rsync` to learn what these args do
